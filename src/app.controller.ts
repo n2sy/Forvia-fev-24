@@ -1,9 +1,10 @@
 import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { TaskService } from './task/task.service';
 
 @Controller('forvia')
 export class AppController {
-  constructor() {}
+  constructor(private taskSer: TaskService) {}
 
   @Get('')
   getHello(): string {

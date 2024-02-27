@@ -16,12 +16,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TaskDTO } from './DTO/task.dto';
 import { Task } from './models/task';
 import { TaskService } from './task.service';
+
 @Controller('task')
 export class TaskController {
   allTasks: Task[] = [];
 
-  //constructor(private taskSer: TaskService) {}
+  // constructor(
+  //   private appSer: AppService,
+  //   private taskSer: TaskService,
+  // ) {}
   @Inject(TaskService) taskSer;
+  //@Inject(AppService) appSer;
 
   @Get('test')
   appelerTest(@Res() response: Response) {

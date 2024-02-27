@@ -10,7 +10,7 @@ import { TaskModule } from './task/task.module';
   imports: [TaskModule],
   controllers: [AppController],
   providers: [AppService],
-  // exports: []
+  //exports: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
