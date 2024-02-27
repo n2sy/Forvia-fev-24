@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   NotFoundException,
   Param,
   Post,
@@ -14,17 +15,30 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskDTO } from './DTO/task.dto';
 import { Task } from './models/task';
+import { TaskService } from './task.service';
 @Controller('task')
 export class TaskController {
   allTasks: Task[] = [];
 
+  //constructor(private taskSer: TaskService) {}
+  @Inject(TaskService) taskSer;
+
+  @Get('test')
+  appelerTest(@Res() response: Response) {
+    return response.json(this.taskSer.testService());
+  }
+
   @Get('all')
   getAllTasks(@Res() response: Response) {
+    //console.log(response);
+
     return response.json({ allTasks: this.allTasks });
   }
 
-  @Post('new')
+  @Post('all')
   addTask(@Body() newTask: TaskDTO, @Res() response: Response) {
+    // console.log(newTask instanceof TaskDTO);
+
     // newTask.prenom = 'nidhal';
     // delete newTask.statut;
     const { title, year, statut } = newTask;
