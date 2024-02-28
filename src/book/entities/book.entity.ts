@@ -7,6 +7,7 @@ export class BookEntity extends TimeStamp {
   id: number;
   @Column({
     length: 20,
+
     // name : 'titre',
     // update : false
   })
