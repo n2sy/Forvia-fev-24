@@ -11,13 +11,20 @@ import {
   Put,
   Query,
   Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { diskStorage } from 'multer';
+import { AdminGuard } from 'src/admin/admin.guard';
 import { BookDTO } from './DTO/book.dto';
 import { QmDTO } from './DTO/qm.dto';
 import { BookService } from './book.service';
 
 @Controller('book')
+//@UseGuards(JwtAuthGuard)
 export class BookController {
   constructor(private bookSer: BookService) {}
 
@@ -30,6 +37,7 @@ export class BookController {
       throw new ConflictException();
     }
   }
+  @UseGuards(AdminGuard)
   @Post('add')
   async ajouterLivre(@Body() body, @Res() response: Response) {
     try {
@@ -110,5 +118,27 @@ export class BookController {
   async RecoverLivre(@Param('id') id, @Res() response: Response) {
     let result = await this.bookSer.recoverBook(id);
     return response.json(result);
+  }
+
+  // @Post('uploads')
+  // @UseInterceptors(FileInterceptor('file'))
+  // uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   console.log(file);
+  // }
+  @Post('uploads')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './images',
+      }),
+    }),
+  )
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+  }
+
+  @Get('uploads/images/:filename')
+  loadImage(@Res() response: Response, @Param('filename') param) {
+    response.sendFile(param, { root: 'images' });
   }
 }

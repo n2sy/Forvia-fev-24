@@ -18,8 +18,6 @@ export class BookService {
 
   addBook(newBook: BookDTO) {
     //this.bookRepo.create;
-    console.log(newBook);
-
     return this.bookRepo.save(newBook);
   }
 
