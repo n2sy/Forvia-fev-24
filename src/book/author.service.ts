@@ -13,6 +13,9 @@ export class AuthorService {
   getAllAuthors() {
     return this.authorRepo.find({
       withDeleted: true,
+      relations: {
+        listeLivres: true,
+      },
     });
   }
 

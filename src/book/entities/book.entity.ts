@@ -21,6 +21,7 @@ export class BookEntity extends TimeStamp {
   year: number;
 
   @ManyToOne((type) => AuthorEntity, (author) => author.listeLivres, {
+    //lazy: true,
     cascade: true,
   })
   author: AuthorEntity;

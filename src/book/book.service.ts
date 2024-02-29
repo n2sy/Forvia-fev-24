@@ -13,6 +13,10 @@ export class BookService {
   getAllBooks() {
     return this.bookRepo.find({
       withDeleted: true,
+      loadRelationIds: true,
+      // relations: {
+      //   author: true,
+      // },
     });
   }
 
