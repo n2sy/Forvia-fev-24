@@ -1,4 +1,5 @@
 import { IsInt, IsNotEmpty, MinLength } from 'class-validator';
+import { AuthorEntity } from '../entities/author.entity';
 
 export class BookDTO {
   @IsNotEmpty()
@@ -10,4 +11,7 @@ export class BookDTO {
 
   @IsInt()
   year: number;
+
+  @IsNotEmpty()
+  author: AuthorEntity;
 }

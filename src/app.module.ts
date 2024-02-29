@@ -8,6 +8,7 @@ import { BookModule } from './book/book.module';
 import { FirstMiddleware } from './first/first.middleware';
 import { SecondMiddleware } from './second/second.middleware';
 import { TaskModule } from './task/task.module';
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ dotenv.config();
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -31,7 +31,7 @@ export class BookController {
     }
   }
   @Post('add')
-  async ajouterLivre(@Body() body: BookDTO, @Res() response: Response) {
+  async ajouterLivre(@Body() body, @Res() response: Response) {
     try {
       let result = await this.bookSer.addBook(body);
       return response.json(result);
@@ -56,6 +56,8 @@ export class BookController {
   @Get(':id')
   async chercherLivre(@Param('id') id, @Res() response: Response) {
     let result = await this.bookSer.getBookById(id);
+    console.log(result);
+
     if (!result) throw new NotFoundException();
     return response.json(result);
   }
